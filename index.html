@@ -7,10 +7,28 @@
       <script src="main.js"></script>
       <script src="rectObj.js"></script>
       <script src="global.js"></script>
+      <script src="controlPanel.js"></script>
+
+      <style>
+
+        #rooms-manage-control-panel{
+          border: 2px solid blue;
+          margin-top: 20px;
+          height: auto;
+        }
+
+        #zoom-in{
+          padding: 15px;
+          margin: 10px;
+        }
+
+      </style>
   </head>
   <body>
-
-    <canvas id="myCanvas"></canvas>
+      <canvas id="myCanvas"></canvas>
+      <div id="rooms-manage-control-panel">
+        <button id="zoom-in">+</button>
+      </div>
 
   </body>
 </html>
