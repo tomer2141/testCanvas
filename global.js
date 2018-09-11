@@ -6,3 +6,7 @@ const rows = 9;
 const titleMargin = 50;
 const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const textSize = 12;
+const controls = {
+  view: {x: 0, y: 0, zoom: 1},
+  viewPos: { prevX: null,  prevY: null,  isDragging: false },
+}

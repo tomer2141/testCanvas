@@ -3,12 +3,17 @@ function controlPanel_setSize(){
 }
 
 function zoom_in(){
-  console.log("zoom in");
-  let addWidth = (10 / 100) * rectWidth;
-  let addHeight = (10 / 100) * rectHeight;
-  console.log(addWidth);
-  rectWidth = rectWidth + addWidth;
-  rectHeight = rectHeight + addHeight;
+  if (rectWidth < (80 / 100) * cnvWidth && rectHeight < (80 / 100) * cnvHeight) {
+    let w = (20 / 100) * rectWidth;
+    rectWidth += w;
+    let h = (20 / 100) * rectHeight;
+    rectHeight += h;
 
-  draw();
+    setup();
+    update();
+  }
+}
+
+function zoom_in_draw(){
+
 }
