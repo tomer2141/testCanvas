@@ -5,6 +5,8 @@ let rectWidth;
 let rectHeight;
 let rectArr;
 let selctedRect;
+let zoomW;
+let zoomH;
 let tid = setInterval( function () {
     if ( document.readyState !== 'complete' ) return;
     clearInterval( tid );
@@ -21,6 +23,8 @@ function init(){
 
    rectWidth = cnvWidth / cols;
    rectHeight = cnvHeight / rows;
+   zoomW = (25 / 100) * rectWidth;
+   zoomH = (25 / 100) * rectHeight;
 
    controlPanel_setSize();
 
@@ -39,21 +43,21 @@ function init(){
   setup();
   draw();
 
-
   //Listen for click on the zoom in button
   document.getElementById("zoom-in").addEventListener("click", zoom_in);
-  cnv.addEventListener("click", cnv_click_handler);
-  cnv.mousePressed = e => Controls.move(controls).mousePressed(e);
-  cnv.mouseDragged = e => Controls.move(controls).mouseDragged(e);
-  cnv.mouseReleased = e => Controls.move(controls).mouseReleased(e);
+  document.getElementById("zoom-out").addEventListener("click", zoom_out);
+  cnv.addEventListener("click", e => Controls.move(controls).mousePressed(e), false);
+  cnv.addEventListener("mousedown", e => Controls.move(controls).mouseDown(e), false);
+  cnv.addEventListener("mousemove", e => Controls.move(controls).mouseMove(e), false);
+  cnv.addEventListener("mouseup", e => Controls.move(controls).mouseReleased(e), false);
+  //cnv.addEventListener("wheel", e => Controls.move(controls).mouseWheel(e), false);
+  //cnv.mouseReleased = e => Controls.move(controls).mouseReleased(e);
   //canvas.mouseWheel(e => Controls.zoom(controls).worldZoom(e))
-  cnv.addEventListener('wheel', e => Controls.zoom(controls).worldZoom(e));
+  //cnv.addEventListener('wheel', e => Controls.zoom(controls).worldZoom(e));
 
 } //End of init function
 
 function setup(){
-  translate(controls.view.x, controls.view.y);
-  scale(controls.view.zoom);
   rectArr = [];
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
@@ -64,7 +68,6 @@ function setup(){
 }
 
 function draw(){
-
 for (let i = 0; i < rectArr.length; i++) {
   if (rectArr[i] == selctedRect) {
     console.log("clicked this")
@@ -74,6 +77,7 @@ for (let i = 0; i < rectArr.length; i++) {
   }
 }
 
+//Printing the letters
 for (let i = 0; i < cols; i++) {
   let text = abc[0] + abc[i];
   let x = (i * rectWidth) + (titleMargin / 2) + ((rectWidth / 2) - textSize / 2);
@@ -83,6 +87,7 @@ for (let i = 0; i < cols; i++) {
     drawText(text, x, bottomY);
 }
 
+//Printing the numbers
 for (let i = 0; i < rows; i++) {
   let leftX = ((titleMargin / 2) - (textSize / 2)) / 2;
   let rightX = (cols * rectWidth) + (titleMargin / 2) + leftX;

@@ -3,17 +3,25 @@ function controlPanel_setSize(){
 }
 
 function zoom_in(){
-  if (rectWidth < (80 / 100) * cnvWidth && rectHeight < (80 / 100) * cnvHeight) {
-    let w = (20 / 100) * rectWidth;
-    rectWidth += w;
-    let h = (20 / 100) * rectHeight;
-    rectHeight += h;
+  if (rectWidth < (90 / 100) * cnvWidth && rectHeight < (80 / 100) * cnvHeight) {
+    //let w = (5 / 100) * rectWidth;
+    rectWidth += zoomW;
+    //let h = (5 / 100) * rectHeight;
+    rectHeight += zoomH;
 
     setup();
     update();
   }
 }
 
-function zoom_in_draw(){
+function zoom_out(){
+  if (rectWidth > (10 / 100) * cnvWidth && rectHeight > (10 / 100) * cnvHeight) {
+    //let w = (5 / 100) * rectWidth;
+    rectWidth -= zoomW;
+    //let h = (5 / 100) * rectHeight;
+    rectHeight -= zoomH;
 
+    setup();
+    update();
+  }
 }
