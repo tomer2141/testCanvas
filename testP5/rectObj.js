@@ -9,12 +9,10 @@ class RectObj {
   }
 
   draw(color = 'grey', lineWidth = "1"){
-    ctx.beginPath();
-    ctx.lineWidth=lineWidth;
-    ctx.strokeStyle=color;
-    ctx.rect(this.x, this.y, rectWidth, rectHeight);
-    ctx.stroke();
-    drawText("("+this.r+", "+this.c+")", this.x + (rectWidth / 2) - (textSize / 2), this.y + (rectHeight / 2));
+    stroke(color);
+    fill(255);
+    rect(this.x, this.y, rectWidth, rectHeight);
+    //drawText("("+this.r+", "+this.c+")", this.x + (rectWidth / 2) - (textSize / 2), this.y + (rectHeight / 2));
   }
 
   isClicked(x, y){

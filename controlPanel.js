@@ -25,3 +25,43 @@ function zoom_out(){
     update();
   }
 }
+
+function draging_left(){
+  for (let i = 0; i < rectArr.length; i++) {
+      for (let j = 0; j < rectArr[i].length; j++) {
+        rectArr[i][j].x -= 20;
+      }
+  }
+  console.log('left');
+  update();
+}
+
+function draging_right(){
+  for (let i = 0; i < rectArr.length; i++) {
+      for (let j = 0; j < rectArr[i].length; j++) {
+        rectArr[i][j].x += 20;
+      }
+  }
+  console.log('right');
+  update();
+}
+
+function draging_up(){
+  for (let i = 0; i < rectArr.length; i++) {
+      for (let j = 0; j < rectArr[i].length; j++) {
+        rectArr[i][j].y -= 20;
+      }
+  }
+  console.log('up');
+  update();
+}
+
+function draging_down(){
+  for (let i = 0; i < rectArr.length; i++) {
+      for (let j = 0; j < rectArr[i].length; j++) {
+        rectArr[i][j].y += 20;
+      }
+  }
+  console.log('down');
+  update();
+}

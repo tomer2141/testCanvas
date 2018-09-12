@@ -49,58 +49,60 @@ function init(){
   cnv.addEventListener("click", e => Controls.move(controls).mousePressed(e), false);
   cnv.addEventListener("mousedown", e => Controls.move(controls).mouseDown(e), false);
   cnv.addEventListener("mousemove", e => Controls.move(controls).mouseMove(e), false);
-  cnv.addEventListener("mouseup", e => Controls.move(controls).mouseReleased(e), false);
-  //cnv.addEventListener("wheel", e => Controls.move(controls).mouseWheel(e), false);
-  //cnv.mouseReleased = e => Controls.move(controls).mouseReleased(e);
-  //canvas.mouseWheel(e => Controls.zoom(controls).worldZoom(e))
-  //cnv.addEventListener('wheel', e => Controls.zoom(controls).worldZoom(e));
+  document.getElementById('main-body').addEventListener("mouseup", e => Controls.move(controls).mouseReleased(e), false);
 
 } //End of init function
 
 function setup(){
   rectArr = [];
   for (let i = 0; i < cols; i++) {
+    let col = [];
     for (let j = 0; j < rows; j++) {
-        let rect = new RectObj((i * rectWidth) + (titleMargin / 2), (j * rectHeight) + (titleMargin / 2), rectWidth, rectHeight);
-        rectArr.push(rect);
+        let rect = new RectObj((i * rectWidth) + (titleMargin / 2), (j * rectHeight) + (titleMargin / 2), rectWidth, rectHeight, i, j);
+        col.push(rect);
     }
+    rectArr.push(col);
   }
 }
 
 function draw(){
 for (let i = 0; i < rectArr.length; i++) {
-  if (rectArr[i] == selctedRect) {
-    console.log("clicked this")
-      rectArr[i].draw('blue', "3");
-  } else {
-    rectArr[i].draw();
+  for (let j = 0; j < rectArr[i].length; j++) {
+      rectArr[i][j].draw();
+      console.log("draw");
   }
 }
 
 //Printing the letters
 for (let i = 0; i < cols; i++) {
+  let firstRow = rectArr[i][0];
+  let lastRow = rectArr[i][rows - 1];
   let text = abc[0] + abc[i];
-  let x = (i * rectWidth) + (titleMargin / 2) + ((rectWidth / 2) - textSize / 2);
-  let upperY = (titleMargin / 2) / 2 + (textSize / 2);
-  let bottomY = (rows * rectHeight) + titleMargin - (textSize / 2);
+  let x = firstRow.x + (rectWidth / 2);
+  let upperY = firstRow.y - textSize / 2;
+  let bottomY = lastRow.y + rectHeight + (titleMargin / 2) - textSize / 2;
     drawText(text, x, upperY);
     drawText(text, x, bottomY);
 }
 
 //Printing the numbers
 for (let i = 0; i < rows; i++) {
-  let leftX = ((titleMargin / 2) - (textSize / 2)) / 2;
-  let rightX = (cols * rectWidth) + (titleMargin / 2) + leftX;
-  let y = (i * rectHeight) + (titleMargin / 2) + (rectHeight / 2);
-  drawText(i + 1, rightX, y);
+  let firstRow = rectArr[0][i];
+  //console.log(firstRow)
+  let lastRow = rectArr[cols - 1][i];
+  let leftX = firstRow.x - (titleMargin / 3);
+  let rightX = lastRow.x + rectWidth + (textSize / 1.3);
+  let y = firstRow.y + (rectHeight / 2);
+  //let rightY = lastRow.y + (rectHeight / 2);
   drawText(i + 1, leftX, y);
+  drawText(i + 1, rightX, y);
 }
 
 //draw the inner big rect
 ctx.beginPath();
 ctx.lineWidth="2";
 ctx.strokeStyle="black";
-ctx.rect(titleMargin / 2, titleMargin / 2, cols * rectWidth,  rows * rectHeight);
+ctx.rect(rectArr[0][0], rectArr[rows - 1][cols - 1], cols * rectWidth,  rows * rectHeight);
 ctx.stroke();
 //end
 } //End of draw()

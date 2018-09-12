@@ -20,11 +20,35 @@ class Controls {
       if(prevX || prevY) {
         controls.view.x += dx;
         controls.view.y += dy;
-        controls.viewPos.prevX = pos.x, controls.viewPos.prevY = pos.y
+        controls.viewPos.prevX = pos.x, controls.viewPos.prevY = pos.y;
+
+        console.log(controls.view.x, controls.view.y)
+
+        var deltaX = prevX - e.clientX,
+            deltaY = prevY - e.clientY;
+
+         if (Math.abs(deltaX) > Math.abs(deltaY) && deltaX > 0) {
+            draging_left();
+              //left
+          } else if (Math.abs(deltaX) > Math.abs(deltaY) && deltaX < 0) {
+            draging_right();
+              //right
+          } else if (Math.abs(deltaY) > Math.abs(deltaX) && deltaY > 0) {
+            draging_up();
+              //up
+          } else if (Math.abs(deltaY) > Math.abs(deltaX) && deltaY < 0) {
+            draging_down();
+              //down
+          }
+
+
       }
       //console.log(controls.view.x, controls.view.y)
-      
+
+
+
       }
+
     }
 
     function mouseReleased(e){
